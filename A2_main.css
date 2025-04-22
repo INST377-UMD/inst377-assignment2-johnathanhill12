@@ -1,0 +1,24 @@
+/* css will go here */
+nav {
+    background-color: aqua;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: inline-flex;
+    gap: 20px;
+}
+
+.nav-links li a{
+    color:blue;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+.nav-links li a:hover {
+    text-decoration: underline;
+    color:brown
+}
