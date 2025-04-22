@@ -1,6 +1,8 @@
 <html>
     <head>
         <title> Stocks Page</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
         <script src="A2_main.js"></script>
         <link rel="stylesheet" href="A2_main.css">
     </head>
@@ -15,5 +17,28 @@
                 <li> <a href="A2_Stocks.html">Stocks </a></li>
             </ul>
         </nav>
+
+        <h2><b>Here are some of the activities you can do!</b></h2>
+
+        <script>
+            if (annyang) {
+            const commands = {
+                'hello': function () {
+                alert('Hello world!');
+                },
+                'change color to *color': function (color) {
+                document.body.style.backgroundColor = color;
+                }
+            };
+
+            annyang.addCommands(commands);
+
+            SpeechKITT.annyang();
+            SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
+            SpeechKITT.vroom();
+            }
+            
+        </script>
+        
     </body>
 </html>
