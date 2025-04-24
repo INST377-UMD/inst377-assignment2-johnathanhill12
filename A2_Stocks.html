@@ -2,7 +2,7 @@
     <head>
         <title> Stocks Page</title>
         <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
         <script src="A2_main.js"></script>
         <link rel="stylesheet" href="A2_main.css">
     </head>
@@ -24,20 +24,31 @@
             if (annyang) {
             const commands = {
                 'hello': function () {
-                alert('Hello world!');
+                alert('Hello world!'); //Alerts hello world
                 },
-                'change color to *color': function (color) {
-                document.body.style.backgroundColor = color;
+                'change color to *color': function (color) { 
+                document.body.style.backgroundColor = color; //changes the color 
+                },
+                'Navigate to home': function () {
+                    window.location.href = 'A2_index.html'; //navigates to the home page
+                },
+                'Navigate to stocks': function () {
+                    window.location.href = 'A2_Stocks.html'; //navigates to the stocks page
+                },
+                'Navigate to dogs': function () {
+                    window.location.href = 'A2_Dogs.html'; //navigates to the dogs page 
                 }
             };
 
             annyang.addCommands(commands);
+            annyang.start();
 
             SpeechKITT.annyang();
             SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
             SpeechKITT.vroom();
             }
-            
+
+
         </script>
         
     </body>
