@@ -81,3 +81,16 @@ nav {
     align-items: center;
     gap: 10px;
 }
+
+#quoteSection {
+  width: 70%;
+  margin: 20% auto;
+  padding: 25px;
+  border: 4px solid black;
+  border-radius: 8px;
+  background-color: aliceblue;
+  text-align: center;
+  font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
