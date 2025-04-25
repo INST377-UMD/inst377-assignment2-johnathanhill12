@@ -22,15 +22,26 @@
         <!-- Heading -->
         <h2><b>Here are some of the activities you can do!</b></h2>
 
-        <br>
-        
         <!-- Buttons -->
         <div class="buttonsContainer">
             <button class="button-3" id="stocksButton" role="button">Stocks </button>
             <button class="button-3" id="dogsButton" role="button">Dogs</button>
         </div>
-
-        <div id="quoteSection"> Click the button for a quote </div>
+        
+        <!-- Quote Section -->
+        <div id="quoteSection"> New quote loading... </div>
+         
+        <!-- Audio Instructions -->
+        <div id="audioInstructions"> 
+            <p><b>There are many options to Navigate using Audio!</b></p>
+            <ul>
+                <li><strong>"Say hello "</strong> -A "hello" alert comes back</li>
+                <li><strong>"Change color to ___"</strong> - Changed the page to the stated color</li>
+                <li><strong>"Navigate to home"</strong> - Takes you to the home page</li>
+                <li><strong>"Navigate to stocks "</strong> - Takes you to the stocks page</li>
+                <li><strong>"Navigate to dogs"</strong> - Takes you to the dogs page page</li>
+            </ul>
+        </div>
         
         
         <!-- Script for the Audio Div -->
@@ -38,7 +49,7 @@
             if (annyang) {
             const commands = {
                 'hello': function () {
-                alert('Hello world!'); //Alerts hello world
+                alert('Hello!'); //Alerts hello 
                 },
                 'change color to *color': function (color) { 
                 document.body.style.backgroundColor = color; //changes the color 

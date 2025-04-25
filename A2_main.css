@@ -35,10 +35,10 @@ nav {
   cursor: pointer;
   display: inline-block;
   font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 20px;
-  padding: 6px 16px;
+  padding: 12px 24px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -84,7 +84,7 @@ nav {
 
 #quoteSection {
   width: 70%;
-  margin: 20% auto;
+  margin: 5% auto;
   padding: 25px;
   border: 4px solid black;
   border-radius: 8px;
@@ -94,3 +94,14 @@ nav {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+#audioInstructions {
+  width: 70%;
+  height: 50%;
+  margin: 5% auto;
+  padding: 25px;
+  border: 4px solid black;
+  border-radius: 5px;
+  background-color: green;
+  font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
