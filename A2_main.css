@@ -105,3 +105,16 @@ nav {
   font-size: 25px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.stocksDataSection {
+  width: 50%;
+  margin: 5% auto;
+  padding: 20px;
+  border: 2px solid #2ea44f;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+}
+
+h2 {
+  text-align: center;
+}
