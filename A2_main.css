@@ -118,3 +118,19 @@ nav {
 h2 {
   text-align: center;
 }
+
+input, select, button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
+}
+button {
+  background-color: #2ea44f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: #267a3f;
+}

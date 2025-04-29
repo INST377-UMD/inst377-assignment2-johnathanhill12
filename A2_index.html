@@ -30,6 +30,7 @@
         
         <!-- Quote Section -->
         <div id="quoteSection"> New quote loading... </div>
+
          
         <!-- Audio Instructions -->
         <div id="audioInstructions"> 
@@ -41,6 +42,11 @@
                 <li><strong>"Navigate to stocks "</strong> - Takes you to the stocks page</li>
                 <li><strong>"Navigate to dogs"</strong> - Takes you to the dogs page page</li>
             </ul>
+            <!-- Audio buttons -->
+            <div class="audioButtons">
+                <button onclick ="audioOn()">Turn on audio</button>
+                <button onclick="audioOff()">Turn off audio </button>
+            </div>
         </div>
         
         
@@ -65,12 +71,29 @@
                 }
             };
 
+
             annyang.addCommands(commands);
             annyang.start();
 
             SpeechKITT.annyang();
             SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
             SpeechKITT.vroom();
+            }
+
+            function audioOn(){
+                if (annyang) {
+                    annyang.start();
+                    SpeechKITT.vroom();
+                    alert("Voice commands on");
+                }
+            }
+
+            function audioOff(){
+                if (annyang) {
+                    annyang.abort();
+                    SpeechKITT.abort();
+                    alert("Voice commands off");
+                }
             }
             
             //Fetching Quotes from API

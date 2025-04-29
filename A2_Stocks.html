@@ -10,24 +10,6 @@
             font-family: Arial, sans-serif;
             
         }
-
-        
-    
-        input, select, button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 18px;
-        }
-        button {
-            background-color: #2ea44f;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #267a3f;
-        }
         </style>
     </head>
     <body>
@@ -69,6 +51,11 @@
                 <li><strong>"Navigate to stocks "</strong> - Takes you to the stocks page</li>
                 <li><strong>"Navigate to dogs"</strong> - Takes you to the dogs page page</li>
             </ul>
+            <!-- Audio buttons -->
+            <div class="audioButtons">
+                <button onclick ="audioOn()">Turn on audio</button>
+                <button onclick="audioOff()">Turn off audio </button>
+            </div>
         </div>
 
         <script>
@@ -99,9 +86,21 @@
             SpeechKITT.vroom();
             }
 
+            function audioOn(){
+                if (annyang) {
+                    annyang.start();
+                    SpeechKITT.vroom();
+                    alert("Voice commands on");
+                }
+            }
 
-
-
+            function audioOff(){
+                if (annyang) {
+                    annyang.abort();
+                    SpeechKITT.abort();
+                    alert("Voice commands off");
+                }
+            };
         </script>
         
     </body>
