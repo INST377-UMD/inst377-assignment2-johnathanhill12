@@ -1,5 +1,5 @@
 //Stocks from Polygon Api function
-async function fetchStock() {
+async function fetchPolygonStocks() {
     const ticker = document.getElementById("ticker").value.toUpperCase(); 
     const days = document.getElementById("timePeriod").value; 
     // Checking for ticker input 
@@ -39,7 +39,7 @@ async function fetchStock() {
     }
 }
 //button calls the function
-window.fetchStock = fetchStock;
+window.fetchPolygonStocks = fetchPolygonStocks;
 
 // Line Chart using chart.js
 function plotChart(labels, values, ticker) {
@@ -56,7 +56,7 @@ function plotChart(labels, values, ticker) {
         data: {
             labels: labels,
             datasets: [{
-                label: `Daily closing prices for ${ticker}`,
+                label: ` Stock Prices for ${ticker}`,
                 data: values,
                 borderColor: "#000000",
                 fill: false
@@ -65,6 +65,38 @@ function plotChart(labels, values, ticker) {
     });
 }
 
+//Stocks from Reddit Function 
+async function fetchRedditStocks() {
+    try {
+        //Api Call
+        const response = await fetch('https://tradestie.com/api/v1/apps/reddit?date=2022-04-03');
+        const data = await response.json()
+        //gets  top 5 stocks
+        const top5Stocks = data.slice(0,5);
+
+        let tableHtml = "";
+        top5Stocks.forEach(stock => { //Sets icon based on sentiment 
+            const sIcon = stock.sentiment === "Bullish" ? "<img src='bullishicon.png' alt='Bullish' width='40'>"
+            : "<img src='bearishicon.png' alt='Bearish' width='40'>";
+            //link to yahoo finance 
+            const yahooLink = `https://finance.yahoo.com/quote/${stock.ticker}`;
+            //Adding necessary rows 
+            tableHtml += `<tr> 
+                <td><a href="${yahooLink}" target="_blank">${stock.ticker}</a></td>
+                <td>${stock.no_of_comments}</td>
+                <td>${sIcon} ${stock.sentiment}</td>
+            </tr>`;
+        });
+        //Adds generated rows to the reddit stocks table 
+        document.querySelector("#redditStockTable tbody").innerHTML = tableHtml;
+    } catch (error) {
+        //logging errors 
+        console.error("Error while fetching Reddit stocks:", error);
+        //alerts when the fetch fails 
+        alert("Failed to load the reddit stock data, please try again!");
+    } 
+}
+window.onload = fetchRedditStocks;
 //Redirects to stocks page 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('stocksButton').addEventListener('click', function() {

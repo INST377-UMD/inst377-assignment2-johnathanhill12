@@ -40,13 +40,24 @@
                 <option value="90">90 Days</option>
             </select>
     
-            <button onclick="fetchStock()">Submit</button>
+            <button onclick="fetchPolygonStocks()">Submit</button>
 
             </div>
         <!-- Stock Chart -->
         <canvas id="stocksChart"></canvas>
 
         <div id="stocksData">Stocks data will appear shortly...</div>
+
+        <table id="redditStockTable">
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Comment Count</th>
+                    <th>Sentiment</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
         
         <!-- Audio Instruction Box  -->
         <div id="audioInstructions"> 
