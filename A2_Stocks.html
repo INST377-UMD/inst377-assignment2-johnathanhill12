@@ -1,9 +1,10 @@
 <html>
     <head>
         <title> Stocks Page</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
-        <script src="A2_main.js"></script>
+        <script type="module" src="A2_main.js"></script>
         <link rel="stylesheet" href="A2_main.css">
         <style>
             body {
@@ -15,7 +16,7 @@
     <body>
         <h1>Stocks</h1>
         <br>
-        
+        <!-- Navigation -->
         <nav>
             <ul class="nav-links">
                 <li> <a href="A2_index.html">Home</a></li>
@@ -26,10 +27,11 @@
 
         <h2><b>Here are some of the activities you can do!</b></h2>
         
+        <!-- Stocks Data section -->
         <div class="stocksDataSection">
             <h2>Lookup Stock Data </h2>
-            <label for="ticker">Enter Stock Ticker:</label>
-            <input type="text" id="ticker" placeholder="AAPL, TSLA">
+            <label for="ticker">Enter Ticker:</label>
+            <input type="text" id="ticker" placeholder="AAPL">
     
             <label for="timePeriod">Select Time Period:</label>
             <select id="timePeriod">
@@ -41,7 +43,12 @@
             <button onclick="fetchStock()">Submit</button>
 
             </div>
+        <!-- Stock Chart -->
+        <canvas id="stocksChart"></canvas>
 
+        <div id="stocksData">Stocks data will appear shortly...</div>
+        
+        <!-- Audio Instruction Box  -->
         <div id="audioInstructions"> 
             <p><b>There are many options to Navigate using Audio!</b></p>
             <ul>
@@ -58,6 +65,7 @@
             </div>
         </div>
 
+        <!-- Javascript for the Audio accessibility -->
         <script>
             if (annyang) {
             const commands = {
@@ -85,7 +93,7 @@
             SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
             SpeechKITT.vroom();
             }
-
+            // Enables the audio functionality
             function audioOn(){
                 if (annyang) {
                     annyang.start();
@@ -93,14 +101,16 @@
                     alert("Voice commands on");
                 }
             }
-
+            // Disables Audio Functionality
             function audioOff(){
                 if (annyang) {
                     annyang.abort();
                     SpeechKITT.abort();
                     alert("Voice commands off");
                 }
+            
             };
+            
         </script>
         
     </body>

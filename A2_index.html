@@ -50,7 +50,7 @@
         </div>
         
         
-        <!-- Script for the Audio Div -->
+        <!-- Script for the Audio Accessibility -->
         <script>
             if (annyang) {
             const commands = {
@@ -79,7 +79,7 @@
             SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
             SpeechKITT.vroom();
             }
-
+            // Enables audio
             function audioOn(){
                 if (annyang) {
                     annyang.start();
@@ -87,7 +87,7 @@
                     alert("Voice commands on");
                 }
             }
-
+            // Disables audio
             function audioOff(){
                 if (annyang) {
                     annyang.abort();
@@ -105,6 +105,7 @@
                     const data = await response.json();
                     document.getElementById("quoteSection").innerText = `"${data[0].q}" - ${data[0].a}`;
                 } catch (error){
+                    // catching and logging errors 
                     console.error("Error while fetching quote:", error);
                     document.getElementById("quoteSection").innerText ="Failure to load quote."
                 }
