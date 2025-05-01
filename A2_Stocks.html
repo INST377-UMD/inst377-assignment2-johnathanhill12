@@ -94,6 +94,15 @@
                 },
                 'Navigate to dogs': function () {
                     window.location.href = 'A2_Dogs.html'; //navigates to the dogs page 
+                },
+                'Lookup *stock': function (stock){ //Looks up whichever stock you say
+                    document.getElementById("ticker").value = stock.toUpperCase();
+                    document.getElementById("timePeriod").value = "30";
+                    fetchPolygonStocks();
+                }, catch (error) { 
+                    //Catching errors 
+                    console.error("An error occured while attempting stock lookup", error);
+                    alert("An error occured. Please try again.");
                 }
             };
 
