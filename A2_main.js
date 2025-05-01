@@ -97,6 +97,7 @@ async function fetchRedditStocks() {
     } 
 }
 window.onload = fetchRedditStocks;
+
 //Redirects to stocks page 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('stocksButton').addEventListener('click', function() {
