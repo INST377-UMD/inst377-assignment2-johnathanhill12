@@ -3,6 +3,7 @@
         <title> Dogs Page</title>
         <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-slider"></script>
         <script src="A2_main.js"></script>
         <link rel="stylesheet" href="A2_main.css">
     </head>
@@ -25,14 +26,13 @@
 
         <div id="mainContent"> 
             <!-- Slider Carousel -->
-            <div id="dogCarousel" class="slider" >
-                <!-- <script>
-                    var slider = simpleslider.getSlider({
-                    container: document.getElementById('dogCarousel')
-                  }); 
-                  </script> -->
-                
-            </div>
+            <div id="dogCarousel" class="slider"></div>
+
+            <!-- Slider Button Controls  -->
+            <button onclick="moveSlide(-1)">Previous Slide</button>
+            <button onclick="moveSlide(1)">Next Slide</button>
+            <button onclick="slider.stop()">Pause Slide</button>
+            <button onclick="slider.start()">Start Slide</button>
 
             <!-- Breed Buttons -->
             <div id="breedsSection"></div>
@@ -105,15 +105,9 @@
                     SpeechKITT.abort();
                     alert("Voice commands off");
                 }
-
-            var slider = simpleslider.getSlider({
-                container: document.getElementById('dogCarousel')
-                }); 
             };
 
 
         </script>
-        
-        
     </body>
 </html>

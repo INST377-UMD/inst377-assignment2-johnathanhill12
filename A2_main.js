@@ -71,6 +71,12 @@ async function fetchRedditStocks() {
         //Api Call
         const response = await fetch('https://tradestie.com/api/v1/apps/reddit?date=2022-04-03');
         const data = await response.json()
+
+        const redditTable = document.querySelector('#redditStockTable tbody');
+        if (!redditTable) {
+            console.error("redditStockTable tbody element wasn't found.");
+            return;
+        }
         //gets  top 5 stocks
         const top5Stocks = data.slice(0,5);
 
@@ -87,24 +93,130 @@ async function fetchRedditStocks() {
                 <td>${sIcon} ${stock.sentiment}</td>
             </tr>`;
         });
-        //Adds generated rows to the reddit stocks table 
-        document.querySelector("#redditStockTable tbody").innerHTML = tableHtml;
+        //Updates innerHTML after checking if it exists 
+        redditTable.innerHTML = tableHtml;
     } catch (error) {
         //logging errors 
         console.error("Error while fetching Reddit stocks:", error);
-        //alerts when the fetch fails 
-        // alert("Failed to load the reddit stock data, please try again!");
+        
     } 
 }
 window.onload = fetchRedditStocks;
 
-//Redirects to stocks page 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('stocksButton').addEventListener('click', function() {
-        window.location.href = 'A2_Stocks.html'; 
-    });
-//Redirects to dogs page 
-    document.getElementById('dogsButton').addEventListener('click', function() {
-        window.location.href = 'A2_Dogs.html'; 
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    //Loads the 10 dog images
+    fetchImages(); 
+    //Loads the breed buttons
+    fetchBreeds();  
 });
+
+
+// Fetching images for the carousel
+async function fetchImages() {
+    try {
+        const response = await fetch("https://dog.ceo/api/breeds/image/random/10");
+        const data = await response.json();
+        const carousel = document.getElementById("dogCarousel");
+        
+        //Clears the carousel before repopulating 
+        carousel.innerHTML = "";
+
+        data.message.forEach(imageUrl => {
+            const image = document.createElement("img");
+            image.src = imageUrl;
+            image.alt = "Dog Image";
+            carousel.appendChild(image);
+        });
+        
+        slider = simpleslider.getSlider({
+            container: carousel,
+            transitionDuration: 0.5,
+            autoPlay: true,
+            delay: 2000,
+            infinite: true
+        });
+
+    } catch (error) {
+        console.error("There was an error while loading images", error);
+    }
+}
+
+// Call fetchImages when page loads
+document.addEventListener("DOMContentLoaded", fetchImages);
+
+async function fetchBreeds() {
+    try {
+        const response = await fetch("https://dogapi.dog/api/v2/breeds");
+        const data = await response.json();
+
+        if(!Array.isArray(data.data)) {
+            console.error("Array expected:", data);
+            return;
+        }
+
+        const breedsSection = document.getElementById("breedsSection");
+        if (!breedsSection) return;
+
+        data.data.forEach(breed => {
+            const button = document.createElement("button");
+            button.innerText = breed.name;
+            button.setAttribute("dog-id", breed.id);
+            button.onclick = () => displayBreedInfo(breed);
+            breedsSection.appendChild(button);
+        });
+    } catch (error) {
+        console.error("Error while loading dog breeds", error);
+    }
+}
+
+function displayBreedInfo(breed) {
+    const infoSection = document.getElementById("infoSection");
+    document.getElementById("breedName").innerText = breed.name;
+    document.getElementById("breedDescrip").innerText = breed.description || "No description is available";
+
+    const dogLifeSpan = breed.life_span.split("-");
+    document.getElementById("minLife").innerText = dogLifeSpan[0];
+    document.getElementById("maxLife").innerText = dogLifeSpan[1];
+    //Displays breed info
+    infoSection.classList.remove("hidden")
+}
+
+//Initializing variables
+let slider;
+
+let currentSlide = 0;
+
+function moveSlide(step) {
+    currentSlide += step;
+
+    if (currentSlide< 0) {
+        currentSlide = slider.slides.length - 1; 
+    } else if (currentSlide >= slider.slides.length) {
+        currentSlide = 0; 
+    }
+
+    slider.moveTo(currentSlide);
+}
+window.moveSlide = moveSlide;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname;
+    if (path.endsWith("A2_index.html")) {
+        const stocksButton = document.getElementById("stocksButton");
+        if (stocksButton) {
+            stocksButton.addEventListener("click", () => {
+                window.location.href = "A2_Stocks.html";
+            });
+        }
+
+        const dogsButton = document.getElementById("dogsButton");
+        if (dogsButton) {
+            dogsButton.addEventListener("click", () => {
+                window.location.href = "A2_Dogs.html";
+            });
+        }
+    }
+});
+
+
+

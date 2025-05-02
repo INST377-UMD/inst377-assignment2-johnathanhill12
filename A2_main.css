@@ -169,3 +169,8 @@ th {
   color: white ;
   border: black;
 }
+
+.slider img {
+  width: 80%;
+  height: auto;
+}
