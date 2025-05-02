@@ -93,7 +93,7 @@ async function fetchRedditStocks() {
         //logging errors 
         console.error("Error while fetching Reddit stocks:", error);
         //alerts when the fetch fails 
-        alert("Failed to load the reddit stock data, please try again!");
+        // alert("Failed to load the reddit stock data, please try again!");
     } 
 }
 window.onload = fetchRedditStocks;

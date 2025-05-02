@@ -21,11 +21,18 @@
 
         <h2><b>Here are some of the activities you can do!</b></h2>
 
-        <h2><b>Dog Breeds with Carousel</b></h2>
+        <h2><b>Dog Breeds Carousel</b></h2>
 
         <div id="mainContent"> 
             <!-- Slider Carousel -->
-            <div id="dogCarousel" class="slider"></div>
+            <div id="dogCarousel" class="slider" >
+                <!-- <script>
+                    var slider = simpleslider.getSlider({
+                    container: document.getElementById('dogCarousel')
+                  }); 
+                  </script> -->
+                
+            </div>
 
             <!-- Breed Buttons -->
             <div id="breedsSection"></div>
@@ -34,8 +41,8 @@
             <div id="infoSection" class="hidden">
                 <h2 id="breedName"><b></b></h2>
                 <p id="breedDescrip"></p>
-                <p><b>Minimum Life Span: </b></p>
-                <p><b>Maximum Life Span: </b></p>
+                <p><b>Minimum Life Span: </b><span id="minLife"></span></p>
+                <p><b>Maximum Life Span: </b><span id="maxLife"></span></p>
 
             </div>
         </div>
@@ -98,6 +105,10 @@
                     SpeechKITT.abort();
                     alert("Voice commands off");
                 }
+
+            var slider = simpleslider.getSlider({
+                container: document.getElementById('dogCarousel')
+                }); 
             };
 
 
