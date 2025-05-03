@@ -103,20 +103,16 @@ async function fetchRedditStocks() {
 }
 window.onload = fetchRedditStocks;
 
-document.addEventListener("DOMContentLoaded", () => {
-    //Loads the 10 dog images
-    fetchImages(); 
-    //Loads the breed buttons
-    fetchBreeds();  
-});
-
-
 // Fetching images for the carousel
 async function fetchImages() {
     try {
         const response = await fetch("https://dog.ceo/api/breeds/image/random/10");
         const data = await response.json();
         const carousel = document.getElementById("dogCarousel");
+        if (!carousel) {
+            console.error("dogCarousel was not found");
+            return;
+        }
         
         //Clears the carousel before repopulating 
         carousel.innerHTML = "";
@@ -127,23 +123,31 @@ async function fetchImages() {
             image.alt = "Dog Image";
             carousel.appendChild(image);
         });
-        
-        slider = simpleslider.getSlider({
-            container: carousel,
-            transitionDuration: 0.5,
-            autoPlay: true,
-            delay: 2000,
-            infinite: true
-        });
 
+        // slider = simpleslider.getSlider({
+        //     container: carousel,
+        //     transitionDuration: 0.5,
+        //     infinite:true,
+        // });
     } catch (error) {
         console.error("There was an error while loading images", error);
     }
 }
 
-// Call fetchImages when page loads
-document.addEventListener("DOMContentLoaded", fetchImages);
+// function moveSlide(step) {
+//     currentSlide += step;
 
+//     if (currentSlide< 0) {
+//         currentSlide = slider.slides.length - 1; 
+//     } else if (currentSlide >= slider.slides.length) {
+//         currentSlide = 0; 
+//     }
+
+//     slider.moveTo(currentSlide);
+// }
+// window.moveSlide = moveSlide;
+
+//Fetches and displays dog breeds 
 async function fetchBreeds() {
     try {
         const response = await fetch("https://dogapi.dog/api/v2/breeds");
@@ -159,46 +163,37 @@ async function fetchBreeds() {
 
         data.data.forEach(breed => {
             const button = document.createElement("button");
-            button.innerText = breed.name;
+            button.innerText = breed.attributes.name;
             button.setAttribute("dog-id", breed.id);
             button.onclick = () => displayBreedInfo(breed);
             breedsSection.appendChild(button);
         });
+        //catching errors 
     } catch (error) {
         console.error("Error while loading dog breeds", error);
     }
 }
 
+//Displays info on the breeds after clicking the button
 function displayBreedInfo(breed) {
     const infoSection = document.getElementById("infoSection");
-    document.getElementById("breedName").innerText = breed.name;
-    document.getElementById("breedDescrip").innerText = breed.description || "No description is available";
+    const breedName = breed.attributes.name;
+    const breedDescription = breed.attributes.description || "No description available";  
 
-    const dogLifeSpan = breed.life_span.split("-");
-    document.getElementById("minLife").innerText = dogLifeSpan[0];
-    document.getElementById("maxLife").innerText = dogLifeSpan[1];
-    //Displays breed info
+    document.getElementById("breedName").innerText = breedName;
+    document.getElementById("breedDescrip").innerText = breedDescription;
+
+    const minLifeSpan = breed.attributes.life.min;
+    const maxLifeSpan = breed.attributes.life.max;
+    
+    document.getElementById("minLife").innerText = minLifeSpan;
+    document.getElementById("maxLife").innerText = maxLifeSpan;
+
+    //Displays breed info 
     infoSection.classList.remove("hidden")
 }
 
-//Initializing variables
-let slider;
-
-let currentSlide = 0;
-
-function moveSlide(step) {
-    currentSlide += step;
-
-    if (currentSlide< 0) {
-        currentSlide = slider.slides.length - 1; 
-    } else if (currentSlide >= slider.slides.length) {
-        currentSlide = 0; 
-    }
-
-    slider.moveTo(currentSlide);
-}
-window.moveSlide = moveSlide;
-
+//Handling content loading
 document.addEventListener("DOMContentLoaded", function () {
     const path = window.location.pathname;
     if (path.endsWith("A2_index.html")) {
@@ -215,6 +210,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "A2_Dogs.html";
             });
         }
+    }
+
+    if(path.endsWith("A2_Stocks.html")) {
+        fetchRedditStocks();
+    
+    }
+
+    if(path.endsWith("A2_Dogs.html")){
+        fetchImages();
+        fetchBreeds();
     }
 });
 
