@@ -124,28 +124,15 @@ async function fetchImages() {
             carousel.appendChild(image);
         });
 
-        // slider = simpleslider.getSlider({
-        //     container: carousel,
-        //     transitionDuration: 0.5,
-        //     infinite:true,
-        // });
+        simpleslider.getSlider({
+            container: document.getElementById("dogCarousel"),
+            transitionTime: 2,
+            delay:3.5
+        });
     } catch (error) {
         console.error("There was an error while loading images", error);
     }
 }
-
-// function moveSlide(step) {
-//     currentSlide += step;
-
-//     if (currentSlide< 0) {
-//         currentSlide = slider.slides.length - 1; 
-//     } else if (currentSlide >= slider.slides.length) {
-//         currentSlide = 0; 
-//     }
-
-//     slider.moveTo(currentSlide);
-// }
-// window.moveSlide = moveSlide;
 
 //Fetches and displays dog breeds 
 async function fetchBreeds() {
