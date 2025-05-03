@@ -134,6 +134,7 @@ async function fetchImages() {
     }
 }
 
+
 //Fetches and displays dog breeds 
 async function fetchBreeds() {
     try {

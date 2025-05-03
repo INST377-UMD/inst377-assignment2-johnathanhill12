@@ -68,6 +68,7 @@
                 <li><strong>"Navigate to home"</strong> - Takes you to the home page</li>
                 <li><strong>"Navigate to stocks "</strong> - Takes you to the stocks page</li>
                 <li><strong>"Navigate to dogs"</strong> - Takes you to the dogs page page</li>
+                <li><strong>"Lookup "stock" "</strong> - Looks up the stock of your choice </li>
             </ul>
             <!-- Audio buttons -->
             <div class="audioButtons">
@@ -99,10 +100,19 @@
                     document.getElementById("ticker").value = stock.toUpperCase();
                     document.getElementById("timePeriod").value = "30";
                     fetchPolygonStocks();
-                }, catch (error) { 
-                    //Catching errors 
-                    console.error("An error occured while attempting stock lookup", error);
-                    alert("An error occured. Please try again.");
+                }, 
+                //Displays breed info
+                'Find *breedName': function (breedName){
+                    const dogName = breedName.toLowerCase();
+                    const matchBreed = fetchedBreed.find(b =>
+                    b.attributes.name.toLowerCase() === dogName);
+                
+
+                    if (matchBreed){
+                        displayBreedInfo(matchedBreed);
+                    } else {
+                        alert('${breedName} was not found');
+                    }
                 }
             };
 
