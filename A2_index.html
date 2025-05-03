@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <title> Assignment 2</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
+        <script src="A2_main.js"></script>
+        <link rel="stylesheet" href="A2_main.css">
+    
+    </head>
+    <body onload="getQuoteApi">
+        <h1><b>Assignment 2 Activities </b></h1>
+        <br>
+
+        <nav>
+            <ul class="nav-links">
+                <li> <a href="A2_index.html">Home</a></li>
+                <li> <a href="A2_Dogs.html">Dogs</a></li>
+                <li> <a href="A2_Stocks.html">Stocks </a></li>
+            </ul>
+            
+        </nav>
+        <br>
+        <!-- Heading -->
+        <h2><b>Here are some of the activities you can do!</b></h2>
+
+        <!-- Buttons -->
+        <div class="buttonsContainer">
+            <button class="button-3" id="stocksButton" role="button">Stocks </button>
+            <button class="button-3" id="dogsButton" role="button">Dogs</button>
+        </div>
+        
+        <!-- Quote Section -->
+        <div id="quoteSection"> New quote loading... </div>
+
+         
+        <!-- Audio Instructions -->
+        <div id="audioInstructions"> 
+            <p><b>There are many options to Navigate using Audio!</b></p>
+            <ul>
+                <li><strong>"Say hello "</strong> -A "hello" alert comes back</li>
+                <li><strong>"Change color to ___"</strong> - Changed the page to the stated color</li>
+                <li><strong>"Navigate to home"</strong> - Takes you to the home page</li>
+                <li><strong>"Navigate to stocks "</strong> - Takes you to the stocks page</li>
+                <li><strong>"Navigate to dogs"</strong> - Takes you to the dogs page page</li>
+                <li><strong>"Lookup "stock" "</strong> - Looks up the stock of your choice </li>
+                <li><strong>"Display info for breedName" "</strong> - Displays breed info </li>
+            </ul>
+            <!-- Audio buttons -->
+            <div class="audioButtons">
+                <button onclick ="audioOn()">Turn on audio</button>
+                <button onclick="audioOff()">Turn off audio </button>
+            </div>
+        </div>
+        
+        
+        <!-- Script for the Audio Accessibility -->
+        <script>
+            if (annyang) {
+            const commands = {
+                'hello': function () {
+                alert('Hello!'); //Alerts hello 
+                },
+                'change color to *color': function (color) { 
+                document.body.style.backgroundColor = color; //changes the color 
+                },
+                'Navigate to home': function () {
+                    window.location.href = 'A2_index.html'; //navigates to the home page
+                },
+                'Navigate to stocks': function () {
+                    window.location.href = 'A2_Stocks.html'; //navigates to the stocks page
+                },
+                'Navigate to dogs': function () {
+                    window.location.href = 'A2_Dogs.html'; //navigates to the dogs page 
+                },
+
+                'Lookup *stock': function (stock){ //Looks up whichever stock you say
+                    document.getElementById("ticker").value = stock.toUpperCase();
+                    document.getElementById("timePeriod").value = "30";
+                    fetchPolygonStocks();
+                }, 
+                //Displays breed info
+                'Display info for *breedName': function (breedName){
+                    const dogName = breedName.toLowerCase();
+                    const matchBreed = fetchedBreed.find(b =>
+                    b.attributes.name.toLowerCase() === dogName);
+                
+
+                    if (matchBreed){
+                        displayBreedInfo(matchedBreed);
+                    } else {
+                        alert('${breedName} was not found');
+                    }
+                }
+            };
+
+
+            annyang.addCommands(commands);
+            annyang.start();
+
+            SpeechKITT.annyang();
+            SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
+            SpeechKITT.vroom();
+            }
+            // Enables audio
+            function audioOn(){
+                if (annyang) {
+                    annyang.start();
+                    SpeechKITT.vroom();
+                    alert("Voice commands on");
+                }
+            }
+            // Disables audio
+            function audioOff(){
+                if (annyang) {
+                    annyang.abort();
+                    SpeechKITT.abort();
+                    alert("Voice commands off");
+                }
+            }
+            
+            //Fetching Quotes from API
+            const api_url = "https://zenquotes.io/api/quotes/";
+
+            async function getQuoteApi() {
+                try {
+                    const response = await fetch(api_url);
+                    const data = await response.json();
+                    document.getElementById("quoteSection").innerText = `"${data[0].q}" - ${data[0].a}`;
+                } catch (error){
+                    // catching and logging errors 
+                    console.error("Error while fetching quote:", error);
+                    document.getElementById("quoteSection").innerText ="Failure to load quote."
+                }
+                
+            };
+            window.onload = getQuoteApi
+        </script>
+        
+    </body>
+</html>
